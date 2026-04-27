@@ -1,0 +1,481 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:var(--color-background-primary);
+  --bg2:var(--color-background-secondary);
+  --bg3:var(--color-background-tertiary);
+  --txt:var(--color-text-primary);
+  --txt2:var(--color-text-secondary);
+  --border:var(--color-border-tertiary);
+  --border2:var(--color-border-secondary);
+  --accent:#1D9E75;
+  --accent-light:#E1F5EE;
+  --accent-text:#085041;
+  --danger:#E24B4A;
+  --amber:#EF9F27;
+  --r:var(--border-radius-lg);
+  --rm:var(--border-radius-md);
+}
+body{font-family:var(--font-sans);color:var(--txt);background:var(--bg3);font-size:15px}
+.hidden{display:none!important}
+
+/* NAV */
+.topbar{background:var(--bg);border-bottom:0.5px solid var(--border2);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99}
+.logo{font-size:18px;font-weight:500;color:var(--accent);cursor:pointer}
+.nav-links{display:flex;gap:4px}
+.nav-btn{background:none;border:none;padding:6px 12px;border-radius:var(--rm);font-size:13px;color:var(--txt2);cursor:pointer;transition:background 0.15s,color 0.15s}
+.nav-btn:hover{background:var(--bg2);color:var(--txt)}
+.nav-btn.active{background:var(--accent-light);color:var(--accent-text);font-weight:500}
+.cart-btn{display:flex;align-items:center;gap:6px;background:var(--accent);color:#fff;border:none;border-radius:var(--rm);padding:6px 14px;font-size:13px;font-weight:500;cursor:pointer;transition:opacity 0.15s}
+.cart-btn:hover{opacity:0.88}
+.badge{background:rgba(255,255,255,0.3);border-radius:20px;padding:1px 7px;font-size:11px;font-weight:500}
+
+/* PAGES */
+.page{padding:20px;max-width:900px;margin:0 auto;animation:fadeIn 0.18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#1D9E75 0%,#0F6E56 100%);border-radius:var(--r);padding:36px 32px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hero h1{font-size:26px;font-weight:500;margin-bottom:8px}
+.hero p{font-size:14px;opacity:0.85;max-width:340px;line-height:1.6}
+.hero-img{font-size:56px;opacity:0.9;flex-shrink:0}
+.hero-cta{margin-top:20px;background:#fff;color:var(--accent-text);border:none;border-radius:var(--rm);padding:9px 22px;font-size:14px;font-weight:500;cursor:pointer;transition:opacity 0.15s}
+.hero-cta:hover{opacity:0.88}
+
+/* PRODUCTS */
+.section-title{font-size:16px;font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-title span{background:var(--accent-light);color:var(--accent-text);border-radius:20px;padding:2px 10px;font-size:12px}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.filt{background:var(--bg2);border:0.5px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--txt2);cursor:pointer;transition:all 0.15s}
+.filt.active,.filt:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color 0.15s,transform 0.15s}
+.card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.card-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:44px;background:var(--bg2)}
+.card-body{padding:12px}
+.card-cat{font-size:11px;color:var(--txt2);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em}
+.card-name{font-size:14px;font-weight:500;margin-bottom:8px;line-height:1.4}
+.card-price{font-size:17px;font-weight:500;color:var(--accent)}
+.card-old{font-size:12px;color:var(--txt2);text-decoration:line-through;margin-left:6px}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.add-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--rm);padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;transition:opacity 0.15s}
+.add-btn:hover{opacity:0.85}
+.qty-ctrl{display:flex;align-items:center;gap:6px}
+.qty-btn{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--border2);background:var(--bg2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;color:var(--txt);transition:background 0.12s}
+.qty-btn:hover{background:var(--bg3)}
+.qty-num{font-size:13px;font-weight:500;min-width:16px;text-align:center}
+
+/* CART PAGE */
+.cart-empty{text-align:center;padding:48px 20px;color:var(--txt2)}
+.cart-empty .ce-icon{font-size:48px;margin-bottom:12px}
+.cart-table{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px}
+.ct-row{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:center;padding:14px 16px;border-bottom:0.5px solid var(--border)}
+.ct-row.header{background:var(--bg2);font-size:12px;color:var(--txt2);text-transform:uppercase;letter-spacing:0.05em}
+.ct-row:last-child{border-bottom:none}
+.ct-item{display:flex;align-items:center;gap:10px}
+.ct-emoji{font-size:26px;width:42px;height:42px;background:var(--bg2);border-radius:var(--rm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ct-name{font-size:14px;font-weight:500}
+.ct-unit{font-size:12px;color:var(--txt2)}
+.ct-price{font-size:14px;font-weight:500;text-align:right;min-width:72px}
+.ct-remove{background:none;border:none;color:var(--txt2);cursor:pointer;font-size:16px;padding:4px;border-radius:var(--rm);transition:color 0.12s,background 0.12s}
+.ct-remove:hover{color:var(--danger);background:rgba(226,75,74,0.1)}
+
+/* SUMMARY */
+.summary-box{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:20px}
+.sum-row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;color:var(--txt2)}
+.sum-row.total{font-size:17px;font-weight:500;color:var(--txt);border-top:0.5px solid var(--border2);margin-top:8px;padding-top:12px}
+.sum-row.discount{color:#E24B4A}
+.checkout-btn{width:100%;margin-top:16px;background:var(--accent);color:#fff;border:none;border-radius:var(--rm);padding:13px;font-size:15px;font-weight:500;cursor:pointer;transition:opacity 0.15s}
+.checkout-btn:hover{opacity:0.88}
+.checkout-btn:disabled{opacity:0.4;cursor:default}
+.promo-row{display:flex;gap:8px;margin-top:12px}
+.promo-input{flex:1;padding:8px 10px;border:0.5px solid var(--border2);border-radius:var(--rm);background:var(--bg2);color:var(--txt);font-size:13px;outline:none}
+.promo-input:focus{border-color:var(--accent)}
+.promo-apply{background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--rm);padding:8px 14px;font-size:13px;cursor:pointer;color:var(--txt);transition:background 0.12s}
+.promo-apply:hover{background:var(--bg3)}
+.promo-ok{font-size:12px;margin-top:6px;color:var(--accent)}
+.promo-err{font-size:12px;margin-top:6px;color:var(--danger)}
+
+/* CALC PAGE */
+.calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media(max-width:580px){.calc-wrap{grid-template-columns:1fr}}
+.calc-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:20px}
+.calc-title{font-size:15px;font-weight:500;margin-bottom:16px}
+.calc-field{margin-bottom:14px}
+.calc-field label{display:block;font-size:12px;color:var(--txt2);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em}
+.calc-field select,.calc-field input[type=number]{width:100%;padding:8px 10px;border:0.5px solid var(--border2);border-radius:var(--rm);background:var(--bg2);color:var(--txt);font-size:14px;outline:none}
+.calc-field select:focus,.calc-field input:focus{border-color:var(--accent)}
+.calc-field input[type=range]{width:100%;margin-top:4px}
+.range-val{font-size:13px;font-weight:500;color:var(--accent)}
+.result-block{background:var(--accent-light);border:0.5px solid var(--accent);border-radius:var(--r);padding:20px;margin-top:16px}
+.result-num{font-size:30px;font-weight:500;color:var(--accent-text)}
+.result-sub{font-size:13px;color:var(--accent-text);opacity:0.7;margin-top:4px}
+.breakdown{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.br-row{display:flex;justify-content:space-between;font-size:13px}
+.br-row .brl{color:var(--txt2)}
+.br-row .brv{font-weight:500}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-bottom:24px}
+.about-card{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:18px;text-align:center}
+.about-icon{font-size:32px;margin-bottom:10px}
+.about-card h3{font-size:14px;font-weight:500;margin-bottom:6px}
+.about-card p{font-size:13px;color:var(--txt2);line-height:1.5}
+
+/* SUCCESS */
+.success-screen{text-align:center;padding:40px 20px}
+.success-icon{font-size:56px;margin-bottom:12px}
+.success-screen h2{font-size:20px;font-weight:500;margin-bottom:8px;color:var(--accent)}
+.success-screen p{font-size:14px;color:var(--txt2);margin-bottom:20px}
+.go-shop{background:var(--accent);color:#fff;border:none;border-radius:var(--rm);padding:10px 24px;font-size:14px;font-weight:500;cursor:pointer}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--accent);color:#fff;padding:10px 18px;border-radius:var(--rm);font-size:13px;font-weight:500;opacity:0;transform:translateY(10px);transition:all 0.25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+</style>
+
+<div class="topbar">
+  <div class="logo" onclick="goPage('home')">GreenShop</div>
+  <div class="nav-links">
+    <button class="nav-btn active" data-page="home" onclick="goPage('home')">Главная</button>
+    <button class="nav-btn" data-page="catalog" onclick="goPage('catalog')">Каталог</button>
+    <button class="nav-btn" data-page="calc" onclick="goPage('calc')">Калькулятор</button>
+    <button class="nav-btn" data-page="about" onclick="goPage('about')">О нас</button>
+  </div>
+  <button class="cart-btn" onclick="goPage('cart')">
+    Корзина <span class="badge" id="cart-badge">0</span>
+  </button>
+</div>
+
+<!-- HOME -->
+<div class="page" id="page-home">
+  <div class="hero">
+    <div>
+      <h1>Свежие продукты с фермы</h1>
+      <p>Органические овощи, фрукты и зелень с доставкой на следующий день</p>
+      <button class="hero-cta" onclick="goPage('catalog')">Перейти в каталог</button>
+    </div>
+    <div class="hero-img">🌿</div>
+  </div>
+
+  <div class="section-title">Хиты продаж <span>Популярное</span></div>
+  <div class="products-grid" id="home-products"></div>
+</div>
+
+<!-- CATALOG -->
+<div class="page hidden" id="page-catalog">
+  <div class="section-title">Весь каталог <span id="cat-count"></span></div>
+  <div class="filter-row" id="filters"></div>
+  <div class="products-grid" id="all-products"></div>
+</div>
+
+<!-- CALC -->
+<div class="page hidden" id="page-calc">
+  <div class="section-title">Калькулятор заказа <span>Рассчитайте стоимость</span></div>
+  <div class="calc-wrap">
+    <div class="calc-card">
+      <div class="calc-title">Параметры доставки</div>
+      <div class="calc-field">
+        <label>Тип доставки</label>
+        <select id="c-delivery" onchange="calcUpdate()">
+          <option value="0">Самовывоз (бесплатно)</option>
+          <option value="150">Стандартная (150 ₽)</option>
+          <option value="300">Экспресс за 2 ч (300 ₽)</option>
+          <option value="500">Ночная доставка (500 ₽)</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label>Промокод / скидка</label>
+        <select id="c-discount" onchange="calcUpdate()">
+          <option value="0">Без скидки</option>
+          <option value="5">5% (первый заказ)</option>
+          <option value="10">10% (постоянный клиент)</option>
+          <option value="15">15% (VIP)</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label>Количество позиций: <span class="range-val" id="c-qty-val">5</span></label>
+        <input type="range" min="1" max="20" value="5" step="1" id="c-qty" oninput="document.getElementById('c-qty-val').textContent=this.value;calcUpdate()">
+      </div>
+      <div class="calc-field">
+        <label>Средняя цена позиции: <span class="range-val" id="c-price-val">250 ₽</span></label>
+        <input type="range" min="50" max="2000" value="250" step="50" id="c-price" oninput="document.getElementById('c-price-val').textContent=this.value+' ₽';calcUpdate()">
+      </div>
+    </div>
+    <div>
+      <div class="result-block">
+        <div style="font-size:13px;color:var(--accent-text);margin-bottom:4px">Итого к оплате</div>
+        <div class="result-num" id="c-total">1 250 ₽</div>
+        <div class="result-sub" id="c-saving"></div>
+        <div class="breakdown" id="c-breakdown"></div>
+      </div>
+      <div class="calc-card" style="margin-top:14px">
+        <div class="calc-title">Быстрый расчёт по сумме</div>
+        <div class="calc-field">
+          <label>Введите сумму товаров (₽)</label>
+          <input type="number" id="c-manual" placeholder="например, 1500" oninput="calcManual()" style="padding:8px 10px;border:0.5px solid var(--border2);border-radius:var(--rm);background:var(--bg2);color:var(--txt);font-size:14px;outline:none;width:100%">
+        </div>
+        <div id="c-manual-result" style="font-size:13px;color:var(--txt2);margin-top:6px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page hidden" id="page-about">
+  <div class="section-title">О магазине</div>
+  <div class="about-grid">
+    <div class="about-card"><div class="about-icon">🌱</div><h3>Органические продукты</h3><p>Только натуральное, без ГМО и химикатов</p></div>
+    <div class="about-card"><div class="about-icon">🚚</div><h3>Быстрая доставка</h3><p>Доставляем за 2–24 часа в любую точку города</p></div>
+    <div class="about-card"><div class="about-icon">🏆</div><h3>Качество</h3><p>Прямые поставки с 12 проверенных ферм</p></div>
+    <div class="about-card"><div class="about-icon">💚</div><h3>Экология</h3><p>Перерабатываемая упаковка, углеродный след = 0</p></div>
+  </div>
+  <div style="background:var(--bg);border:0.5px solid var(--border);border-radius:var(--r);padding:24px">
+    <div style="font-size:15px;font-weight:500;margin-bottom:10px">Мы работаем с 2019 года</div>
+    <p style="font-size:14px;color:var(--txt2);line-height:1.7">GreenShop — семейный интернет-магазин свежих продуктов. Мы напрямую сотрудничаем с фермерами Подмосковья и Краснодарского края, чтобы на вашем столе всегда были самые свежие овощи и фрукты без лишних посредников.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px">
+      <div style="background:var(--bg2);border-radius:var(--rm);padding:14px;text-align:center"><div style="font-size:22px;font-weight:500;color:var(--accent)">4800+</div><div style="font-size:12px;color:var(--txt2)">постоянных клиентов</div></div>
+      <div style="background:var(--bg2);border-radius:var(--rm);padding:14px;text-align:center"><div style="font-size:22px;font-weight:500;color:var(--accent)">200+</div><div style="font-size:12px;color:var(--txt2)">позиций в каталоге</div></div>
+      <div style="background:var(--bg2);border-radius:var(--rm);padding:14px;text-align:center"><div style="font-size:22px;font-weight:500;color:var(--accent)">4.9</div><div style="font-size:12px;color:var(--txt2)">рейтинг на Яндексе</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="page hidden" id="page-cart">
+  <div class="section-title">Корзина</div>
+  <div id="cart-content"></div>
+</div>
+
+<!-- SUCCESS -->
+<div class="page hidden" id="page-success">
+  <div class="success-screen">
+    <div class="success-icon">🎉</div>
+    <h2>Заказ оформлен!</h2>
+    <p>Спасибо за покупку. Мы свяжемся с вами в течение 15 минут для подтверждения.</p>
+    <button class="go-shop" onclick="goPage('home')">Вернуться в магазин</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PRODUCTS=[
+  {id:1,name:'Помидоры черри',cat:'Овощи',emoji:'🍅',price:189,old:220,hot:true},
+  {id:2,name:'Авокадо Хасс',cat:'Фрукты',emoji:'🥑',price:149,old:null,hot:true},
+  {id:3,name:'Шпинат свежий',cat:'Зелень',emoji:'🥬',price:89,old:110,hot:false},
+  {id:4,name:'Огурцы грунтовые',cat:'Овощи',emoji:'🥒',price:79,old:null,hot:true},
+  {id:5,name:'Клубника',cat:'Ягоды',emoji:'🍓',price:299,old:350,hot:false},
+  {id:6,name:'Морковь крупная',cat:'Овощи',emoji:'🥕',price:59,old:null,hot:false},
+  {id:7,name:'Лимоны',cat:'Фрукты',emoji:'🍋',price:129,old:null,hot:false},
+  {id:8,name:'Базилик',cat:'Зелень',emoji:'🌿',price:69,old:85,hot:false},
+  {id:9,name:'Перец болгарский',cat:'Овощи',emoji:'🫑',price:119,old:null,hot:true},
+  {id:10,name:'Черника',cat:'Ягоды',emoji:'🫐',price:249,old:310,hot:false},
+  {id:11,name:'Брокколи',cat:'Овощи',emoji:'🥦',price:139,old:null,hot:false},
+  {id:12,name:'Яблоки Фуджи',cat:'Фрукты',emoji:'🍎',price:99,old:null,hot:true},
+];
+
+let cart={};
+let currentFilter='Все';
+let currentPage='home';
+
+function goPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.add('hidden'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+p).classList.remove('hidden');
+  const nb=document.querySelector(`[data-page="${p}"]`);
+  if(nb)nb.classList.add('active');
+  currentPage=p;
+  if(p==='home')renderHome();
+  if(p==='catalog')renderCatalog();
+  if(p==='cart')renderCart();
+  if(p==='calc')calcUpdate();
+}
+
+function cartCount(){return Object.values(cart).reduce((a,b)=>a+b,0)}
+function cartTotal(){return PRODUCTS.reduce((s,p)=>s+(cart[p.id]||0)*p.price,0)}
+function updateBadge(){document.getElementById('cart-badge').textContent=cartCount()}
+
+function addToCart(id){
+  cart[id]=(cart[id]||0)+1;
+  updateBadge();
+  showToast('Добавлено в корзину');
+  if(currentPage==='home')renderHome();
+  if(currentPage==='catalog')renderCatalog();
+}
+function setQty(id,v){
+  if(v<1){delete cart[id]}else{cart[id]=v}
+  updateBadge();
+  if(currentPage==='home')renderHome();
+  if(currentPage==='catalog')renderCatalog();
+  if(currentPage==='cart')renderCart();
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+function productCard(p){
+  const q=cart[p.id]||0;
+  return`<div class="card">
+    <div class="card-img">${p.emoji}</div>
+    <div class="card-body">
+      <div class="card-cat">${p.cat}</div>
+      <div class="card-name">${p.name}</div>
+      <div style="display:flex;align-items:baseline">
+        <span class="card-price">${p.price} ₽</span>
+        ${p.old?`<span class="card-old">${p.old} ₽</span>`:''}
+      </div>
+      <div class="card-footer">
+        ${q===0
+          ?`<button class="add-btn" onclick="addToCart(${p.id})">+ В корзину</button>`
+          :`<div class="qty-ctrl">
+              <button class="qty-btn" onclick="setQty(${p.id},${q-1})">−</button>
+              <span class="qty-num">${q}</span>
+              <button class="qty-btn" onclick="setQty(${p.id},${q+1})">+</button>
+            </div>`
+        }
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderHome(){
+  const hot=PRODUCTS.filter(p=>p.hot);
+  document.getElementById('home-products').innerHTML=hot.map(productCard).join('');
+}
+
+function renderCatalog(){
+  const cats=['Все',...new Set(PRODUCTS.map(p=>p.cat))];
+  const fRow=document.getElementById('filters');
+  fRow.innerHTML=cats.map(c=>`<div class="filt${currentFilter===c?' active':''}" onclick="setFilter('${c}')">${c}</div>`).join('');
+  const list=currentFilter==='Все'?PRODUCTS:PRODUCTS.filter(p=>p.cat===currentFilter);
+  document.getElementById('all-products').innerHTML=list.map(productCard).join('');
+  document.getElementById('cat-count').textContent=list.length+' товаров';
+}
+
+function setFilter(c){currentFilter=c;renderCatalog()}
+
+function renderCart(){
+  const el=document.getElementById('cart-content');
+  const keys=Object.keys(cart).filter(id=>cart[id]>0);
+  if(!keys.length){
+    el.innerHTML=`<div class="cart-empty"><div class="ce-icon">🛒</div><p>Корзина пуста</p><button class="add-btn" onclick="goPage('catalog')" style="margin-top:12px">Перейти в каталог</button></div>`;
+    return;
+  }
+  const rows=keys.map(id=>{
+    const p=PRODUCTS.find(x=>x.id==id);
+    const q=cart[id];
+    return`<div class="ct-row">
+      <div class="ct-item">
+        <div class="ct-emoji">${p.emoji}</div>
+        <div><div class="ct-name">${p.name}</div><div class="ct-unit">${p.price} ₽/шт</div></div>
+      </div>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="setQty(${id},${q-1})">−</button>
+        <span class="qty-num">${q}</span>
+        <button class="qty-btn" onclick="setQty(${id},${q+1})">+</button>
+      </div>
+      <div class="ct-price">${(p.price*q).toLocaleString('ru')} ₽</div>
+      <button class="ct-remove" onclick="setQty(${id},0)" title="Удалить">✕</button>
+    </div>`;
+  }).join('');
+
+  const sub=cartTotal();
+  const delivery=sub>=1500?0:200;
+  const total=sub+delivery;
+  const promoDiv=`
+    <div class="promo-row">
+      <input class="promo-input" id="promo-inp" placeholder="Введите промокод" />
+      <button class="promo-apply" onclick="applyPromo()">Применить</button>
+    </div>
+    <div id="promo-msg"></div>`;
+
+  el.innerHTML=`
+    <div class="cart-table">
+      <div class="ct-row header"><div>Товар</div><div>Кол-во</div><div>Сумма</div><div></div></div>
+      ${rows}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+      <div>${promoDiv}</div>
+      <div class="summary-box">
+        <div class="sum-row"><span>Товары (${cartCount()} шт.)</span><span>${sub.toLocaleString('ru')} ₽</span></div>
+        <div class="sum-row"><span>Доставка</span><span>${delivery===0?'Бесплатно':delivery+' ₽'}</span></div>
+        <div id="sum-discount-row" class="sum-row discount hidden"></div>
+        <div class="sum-row total"><span>Итого</span><span id="sum-total">${total.toLocaleString('ru')} ₽</span></div>
+        ${delivery>0?'<div style="font-size:11px;color:var(--txt2);margin-top:4px">Бесплатная доставка от 1 500 ₽</div>':''}
+        <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
+      </div>
+    </div>`;
+}
+
+let promoApplied=0;
+function applyPromo(){
+  const codes={FRESH10:10,SAVE15:15,NEW5:5};
+  const v=document.getElementById('promo-inp').value.trim().toUpperCase();
+  const msg=document.getElementById('promo-msg');
+  if(codes[v]){
+    promoApplied=codes[v];
+    msg.className='promo-ok';
+    msg.textContent=`Промокод применён: −${codes[v]}%`;
+    recalcCart();
+  }else{
+    promoApplied=0;
+    msg.className='promo-err';
+    msg.textContent='Промокод не найден';
+    recalcCart();
+  }
+}
+function recalcCart(){
+  const sub=cartTotal();
+  const delivery=sub>=1500?0:200;
+  const disc=promoApplied>0?Math.round(sub*promoApplied/100):0;
+  const total=sub-disc+delivery;
+  const dr=document.getElementById('sum-discount-row');
+  if(dr){
+    if(disc>0){dr.classList.remove('hidden');dr.innerHTML=`<span>Скидка ${promoApplied}%</span><span>−${disc.toLocaleString('ru')} ₽</span>`;}
+    else dr.classList.add('hidden');
+  }
+  const st=document.getElementById('sum-total');
+  if(st)st.textContent=total.toLocaleString('ru')+' ₽';
+}
+
+function checkout(){
+  cart={};promoApplied=0;
+  updateBadge();
+  goPage('success');
+}
+
+function calcUpdate(){
+  const qty=parseInt(document.getElementById('c-qty').value);
+  const price=parseInt(document.getElementById('c-price').value);
+  const delivery=parseInt(document.getElementById('c-delivery').value);
+  const disc=parseInt(document.getElementById('c-discount').value);
+  const sub=qty*price;
+  const discAmt=Math.round(sub*disc/100);
+  const total=sub-discAmt+delivery;
+  document.getElementById('c-total').textContent=total.toLocaleString('ru')+' ₽';
+  document.getElementById('c-saving').textContent=discAmt>0?`Экономия: ${discAmt.toLocaleString('ru')} ₽`:'';
+  document.getElementById('c-breakdown').innerHTML=`
+    <div class="br-row"><span class="brl">Товары (${qty} × ${price} ₽)</span><span class="brv">${sub.toLocaleString('ru')} ₽</span></div>
+    ${disc>0?`<div class="br-row"><span class="brl">Скидка ${disc}%</span><span class="brv" style="color:var(--danger)">−${discAmt.toLocaleString('ru')} ₽</span></div>`:''}
+    <div class="br-row"><span class="brl">Доставка</span><span class="brv">${delivery===0?'Бесплатно':delivery.toLocaleString('ru')+' ₽'}</span></div>
+  `;
+}
+
+function calcManual(){
+  const v=parseInt(document.getElementById('c-manual').value)||0;
+  const delivery=parseInt(document.getElementById('c-delivery').value)||0;
+  const disc=parseInt(document.getElementById('c-discount').value)||0;
+  if(!v){document.getElementById('c-manual-result').textContent='';return}
+  const discAmt=Math.round(v*disc/100);
+  const total=v-discAmt+delivery;
+  document.getElementById('c-manual-result').innerHTML=`Итого: <strong>${total.toLocaleString('ru')} ₽</strong> (скидка ${discAmt.toLocaleString('ru')} ₽ + доставка ${delivery} ₽)`;
+}
+
+renderHome();
+calcUpdate();
+</script>
